@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:libreview/thread/thread_page.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final List<Item> items = [
-    Item("item 1", Text("Item 1")),
+    Item("item 1", () => ThreadPage()),
   ];
 
   @override
@@ -22,8 +23,12 @@ class HomePage extends StatelessWidget {
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => item.widget));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => item.builder.call(),
+                    ),
+                  );
                 },
                 child: Text(item.title),
               ),
@@ -33,9 +38,11 @@ class HomePage extends StatelessWidget {
   }
 }
 
+typedef WidgetBuilder = Widget Function();
+
 class Item {
   final String title;
-  final Widget widget;
+  final WidgetBuilder builder;
 
-  Item(this.title, this.widget);
+  Item(this.title, this.builder);
 }
