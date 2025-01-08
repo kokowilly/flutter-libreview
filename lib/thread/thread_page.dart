@@ -1,21 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:libreview/thread/thread_cubit.dart';
 
 class ThreadPage extends StatelessWidget {
   const ThreadPage({super.key});
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text("Thread Demo"),
-        ),
-        body: Container(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
-          child: Column(
-            children: [
-              _ThreadProgressBar(value: 0.1, color: Colors.red[300]),
-              _ThreadProgressBar(value: 0.2, color: Colors.green[300]),
-              _ThreadProgressBar(value: 0.3, color: Colors.blue[300]),
-            ],
+  Widget build(BuildContext context) => BlocProvider(
+        create: (_) => ThreadCubit(ThreadState()),
+        child: BlocBuilder<ThreadCubit, ThreadState>(
+          builder: (context, state) => Scaffold(
+            appBar: AppBar(
+              title: Text("Thread Demo"),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.share),
+                  tooltip: 'Parallel',
+                  onPressed: () => context.read<ThreadCubit>().parallel(),
+                ),
+                IconButton(
+                  icon: Icon(Icons.arrow_forward),
+                  tooltip: 'Serial',
+                  onPressed: () => context.read<ThreadCubit>().serial(),
+                ),
+              ],
+            ),
+            body: Container(
+              padding: EdgeInsets.symmetric(vertical: 8.0),
+              child: Column(
+                children: [
+                  _ThreadProgressBar(
+                    value: state.progress1,
+                    color: Colors.red[300],
+                  ),
+                  _ThreadProgressBar(
+                    value: state.progress2,
+                    color: Colors.green[300],
+                  ),
+                  _ThreadProgressBar(
+                    value: state.progress3,
+                    color: Colors.blue[300],
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       );
