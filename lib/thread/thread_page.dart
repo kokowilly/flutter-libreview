@@ -23,6 +23,11 @@ class ThreadPage extends StatelessWidget {
                   tooltip: 'Serial',
                   onPressed: () => context.read<ThreadCubit>().serial(),
                 ),
+                IconButton(
+                  icon: Icon(Icons.close),
+                  tooltip: 'Incorrect',
+                  onPressed: () => context.read<ThreadCubit>().wrong(),
+                )
               ],
             ),
             body: Container(
@@ -41,6 +46,9 @@ class ThreadPage extends StatelessWidget {
                     value: state.progress3,
                     color: Colors.blue[300],
                   ),
+                  Text(state.totalStep == null
+                      ? '-'
+                      : "Total step: ${state.totalStep}")
                 ],
               ),
             ),
