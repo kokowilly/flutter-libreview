@@ -12,28 +12,31 @@ class ThreadPage extends StatelessWidget {
           builder: (context, state) => Scaffold(
             appBar: AppBar(
               title: Text("Thread Demo"),
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.share),
-                  tooltip: 'Parallel',
-                  onPressed: () => context.read<ThreadCubit>().parallel(),
-                ),
-                IconButton(
-                  icon: Icon(Icons.arrow_forward),
-                  tooltip: 'Serial',
-                  onPressed: () => context.read<ThreadCubit>().serial(),
-                ),
-                IconButton(
-                  icon: Icon(Icons.close),
-                  tooltip: 'Incorrect',
-                  onPressed: () => context.read<ThreadCubit>().wrong(),
-                )
-              ],
             ),
             body: Container(
               padding: EdgeInsets.symmetric(vertical: 8.0),
               child: Column(
+                spacing: 4.0,
                 children: [
+                  ElevatedButton(
+                    onPressed: () => getCubit(context).parallel(),
+                    child: Text('Concurrent'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => getCubit(context).serial(),
+                    child: Text('Await'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => getCubit(context).alternative(),
+                    child: Text('Alternative'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => getCubit(context).wrong(),
+                    child: Text('Incorrect'),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
                   _ThreadProgressBar(
                     value: state.progress1,
                     color: Colors.red[300],
@@ -55,6 +58,8 @@ class ThreadPage extends StatelessWidget {
           ),
         ),
       );
+
+  ThreadCubit getCubit(BuildContext context) => context.read<ThreadCubit>();
 }
 
 class _ThreadProgressBar extends StatelessWidget {

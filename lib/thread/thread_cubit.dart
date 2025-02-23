@@ -27,6 +27,20 @@ class ThreadCubit extends Cubit<ThreadState> {
     emit(state.copyWith(totalStep: step1 + step2 + step3));
   }
 
+  alternative() async {
+    emit(ThreadState());
+
+    final step1 = _progress1();
+    final step2 = _progress2();
+    final step3 = _progress3();
+
+    final result1 = await step1;
+    final result2 = await step2;
+    final result3 = await step3;
+
+    emit(state.copyWith(totalStep: result1 + result2 + result3));
+  }
+
   wrong() async {
     emit(ThreadState());
     var step1 = 0;
