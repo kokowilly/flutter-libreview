@@ -5,7 +5,7 @@ class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final List<Item> items = [
-    Item("item 1", () => ThreadPage()),
+    Item("Future Parallelism", () => ThreadPage()),
   ];
 
   @override
