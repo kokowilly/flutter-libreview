@@ -19,19 +19,19 @@ class ThreadPage extends StatelessWidget {
                 spacing: 4.0,
                 children: [
                   ElevatedButton(
-                    onPressed: () => getCubit(context).parallel(),
-                    child: Text('Concurrent'),
+                    onPressed: () => getCubit(context).functional(),
+                    child: Text('Functional'),
                   ),
                   ElevatedButton(
-                    onPressed: () => getCubit(context).serial(),
-                    child: Text('Await'),
+                    onPressed: () => getCubit(context).blocking(),
+                    child: Text('Blocking'),
                   ),
                   ElevatedButton(
-                    onPressed: () => getCubit(context).alternative(),
-                    child: Text('Alternative'),
+                    onPressed: () => getCubit(context).imperative(),
+                    child: Text('Imperative'),
                   ),
                   ElevatedButton(
-                    onPressed: () => getCubit(context).wrong(),
+                    onPressed: () => getCubit(context).wrongFunctional(),
                     child: Text('Incorrect'),
                   ),
                   SizedBox(

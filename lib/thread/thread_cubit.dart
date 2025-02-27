@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ThreadCubit extends Cubit<ThreadState> {
   ThreadCubit(super.initialState);
 
-  parallel() async {
+  functional() async {
     emit(ThreadState());
     Future.wait<int>([
       _progress1(),
@@ -18,7 +18,7 @@ class ThreadCubit extends Cubit<ThreadState> {
     );
   }
 
-  serial() async {
+  blocking() async {
     emit(ThreadState());
     final step1 = await _progress1();
     final step2 = await _progress2();
@@ -27,7 +27,7 @@ class ThreadCubit extends Cubit<ThreadState> {
     emit(state.copyWith(totalStep: step1 + step2 + step3));
   }
 
-  alternative() async {
+  imperative() async {
     emit(ThreadState());
 
     final step1 = _progress1();
@@ -41,7 +41,7 @@ class ThreadCubit extends Cubit<ThreadState> {
     emit(state.copyWith(totalStep: result1 + result2 + result3));
   }
 
-  wrong() async {
+  wrongFunctional() async {
     emit(ThreadState());
     var step1 = 0;
     var step2 = 0;
